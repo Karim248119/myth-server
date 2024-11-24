@@ -42,9 +42,7 @@ const getCharacterByName = async (req, res) => {
       return res.status(404).json({ message: "Character not found" });
     }
 
-    res.status(200).json({
-      character,
-    });
+    res.status(200).json(character);
   } catch (error) {
     res
       .status(500)
