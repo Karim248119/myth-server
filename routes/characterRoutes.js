@@ -19,7 +19,7 @@ router.delete(
 
 //get by name
 router.get(
-  "/:mythologyId/characters/:characterName",
+  "/:mythologyId/:characterName",
   characterController.getCharacterByName
 );
 
