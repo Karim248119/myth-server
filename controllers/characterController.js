@@ -25,6 +25,34 @@ const addCharacter = async (req, res) => {
   }
 };
 
+const getCharacterByName = async (req, res) => {
+  const { mythologyId, characterName } = req.params;
+
+  try {
+    const mythology = await Mythology.findById(mythologyId);
+    if (!mythology) {
+      return res.status(404).json({ message: "Mythology not found" });
+    }
+
+    const character = mythology.chapters.find(
+      (char) => char.name === characterName
+    );
+
+    if (!character) {
+      return res.status(404).json({ message: "Character not found" });
+    }
+
+    res.status(200).json({
+      message: "Character found successfully",
+      character,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error retrieving character", error: error.message });
+  }
+};
+
 //delete
 const deleteCharacter = async (req, res) => {
   const { mythologyId, characterName } = req.params;
@@ -97,4 +125,5 @@ module.exports = {
   addCharacter,
   deleteCharacter,
   updateCharacter,
+  getCharacterByName,
 };

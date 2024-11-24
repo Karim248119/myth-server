@@ -16,4 +16,11 @@ router.delete(
   "/:mythologyId/characters/:characterName",
   characterController.deleteCharacter
 );
+
+//get by name
+router.get(
+  "/:mythologyId/characters/:characterName",
+  characterController.getCharacterByName
+);
+
 module.exports = router;
