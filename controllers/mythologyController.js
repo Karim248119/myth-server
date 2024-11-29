@@ -98,10 +98,28 @@ const getMythologyById = async (req, res) => {
   }
 };
 
+// Get a single mythology by Name
+
+const getMythologyByName = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const mythology = await Mythology.findOne({ name: name });
+    if (!mythology) {
+      return res.status(404).json({ message: "Mythology not found" });
+    }
+    res.status(200).json(mythology);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching mythology", error: error.message });
+  }
+};
+
 module.exports = {
   addMythology,
   getAllMythologies,
   getMythologyById,
+  getMythologyByName,
   deleteMythology,
   updateMythology,
 };
