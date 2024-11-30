@@ -2,11 +2,11 @@ const Mythology = require("../models/Mythology");
 
 // Add a character to a specific mythology
 const addCharacter = async (req, res) => {
-  const { mythologyId } = req.params;
+  const { mythologyName } = req.params; // Get mythology name
   const characterData = req.body;
 
   try {
-    const mythology = await Mythology.findById(mythologyId);
+    const mythology = await Mythology.findOne({ name: mythologyName }); // Find mythology by name
     if (!mythology) {
       return res.status(404).json({ message: "Mythology not found" });
     }
@@ -33,10 +33,10 @@ const addCharacter = async (req, res) => {
 };
 
 const getCharacterByName = async (req, res) => {
-  const { mythologyId, characterName } = req.params;
+  const { mythologyName, characterName } = req.params;
 
   try {
-    const mythology = await Mythology.findById(mythologyId);
+    const mythology = await Mythology.findOne({ name: mythologyName }); // Find mythology by name
     if (!mythology) {
       return res.status(404).json({ message: "Mythology not found" });
     }
@@ -57,12 +57,12 @@ const getCharacterByName = async (req, res) => {
   }
 };
 
-//delete
+// Delete a character
 const deleteCharacter = async (req, res) => {
-  const { mythologyId, characterName } = req.params;
+  const { mythologyName, characterName } = req.params;
 
   try {
-    const mythology = await Mythology.findById(mythologyId);
+    const mythology = await Mythology.findOne({ name: mythologyName }); // Find mythology by name
     if (!mythology) {
       return res.status(404).json({ message: "Mythology not found" });
     }
@@ -90,13 +90,13 @@ const deleteCharacter = async (req, res) => {
   }
 };
 
-//update
+// Update a character
 const updateCharacter = async (req, res) => {
-  const { mythologyId, characterName } = req.params;
+  const { mythologyName, characterName } = req.params;
   const characterData = req.body;
 
   try {
-    const mythology = await Mythology.findById(mythologyId);
+    const mythology = await Mythology.findOne({ name: mythologyName }); // Find mythology by name
     if (!mythology) {
       return res.status(404).json({ message: "Mythology not found" });
     }

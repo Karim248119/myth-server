@@ -3,23 +3,24 @@ const characterController = require("../controllers/characterController");
 
 const router = express.Router();
 
-router.post("/:mythologyId/characters", characterController.addCharacter);
+// Add character to mythology
+router.post("/:mythologyName/characters", characterController.addCharacter);
 
-//updarte
+// Update character
 router.put(
-  "/:mythologyId/characters/:characterName",
+  "/:mythologyName/characters/:characterName",
   characterController.updateCharacter
 );
 
-// Delete a chapter
+// Delete character
 router.delete(
-  "/:mythologyId/characters/:characterName",
+  "/:mythologyName/characters/:characterName",
   characterController.deleteCharacter
 );
 
-//get by name
+// Get character by name
 router.get(
-  "/:mythologyId/:characterName",
+  "/:mythologyName/characters/:characterName",
   characterController.getCharacterByName
 );
 
