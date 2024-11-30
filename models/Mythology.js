@@ -15,7 +15,7 @@ const CharacterSchema = new mongoose.Schema({
 });
 
 const MythologySchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   chapters: [CharacterSchema],
 });
 
