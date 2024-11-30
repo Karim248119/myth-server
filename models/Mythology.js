@@ -8,16 +8,14 @@ const SectionSchema = new mongoose.Schema({
 
 const CharacterSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String },
-  img: { type: String },
-  type: { type: String },
+  description: { type: String, required: true },
+  img: { type: String, required: true },
+  type: { type: String, required: true },
   sections: [SectionSchema],
 });
 
 const MythologySchema = new mongoose.Schema({
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  img: { type: String, required: false },
   chapters: [CharacterSchema],
 });
 
