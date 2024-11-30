@@ -101,12 +101,14 @@ const getMythologyById = async (req, res) => {
 // Get a single mythology by Name
 
 const getMythologyByName = async (req, res) => {
+  const { mythologyName } = req.params;
+
   try {
-    const { name } = req.params;
-    const mythology = await Mythology.findOne({ name: name });
+    const mythology = await Mythology.findOne({ name: mythologyName });
     if (!mythology) {
       return res.status(404).json({ message: "Mythology not found" });
     }
+
     res.status(200).json(mythology);
   } catch (error) {
     res
