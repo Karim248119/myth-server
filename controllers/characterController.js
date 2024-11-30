@@ -11,17 +11,24 @@ const addCharacter = async (req, res) => {
       return res.status(404).json({ message: "Mythology not found" });
     }
 
-    mythology.chapters.push(characterData);
+    if (Array.isArray(characterData)) {
+      // If an array of characters is sent, push them all
+      mythology.chapters.push(...characterData);
+    } else {
+      // If a single character is sent, push it
+      mythology.chapters.push(characterData);
+    }
+
     mythology.updatedAt = new Date();
     await mythology.save();
 
     res
       .status(200)
-      .json({ message: "Character added successfully", mythology });
+      .json({ message: "Characters added successfully", mythology });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error adding character", error: error.message });
+      .json({ message: "Error adding characters", error: error.message });
   }
 };
 
