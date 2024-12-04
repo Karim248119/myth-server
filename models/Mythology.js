@@ -14,9 +14,13 @@ const CharacterSchema = new mongoose.Schema({
   sections: [SectionSchema],
 });
 
+CharacterSchema.index({ name: 1 }, { unique: true });
+
 const MythologySchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   chapters: [CharacterSchema],
 });
+
+MythologySchema.index({ name: 1 }, { unique: true });
 
 module.exports = mongoose.model("Mythology", MythologySchema);
