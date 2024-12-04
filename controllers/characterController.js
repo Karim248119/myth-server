@@ -11,6 +11,19 @@ const addCharacter = async (req, res) => {
       return res.status(404).json({ message: "Mythology not found" });
     }
 
+    // Check if a character with the same name already exists in the mythology's chapters
+    const existingCharacter = mythology.chapters.find(
+      (char) => char.name === characterData.name
+    );
+
+    if (existingCharacter) {
+      return res
+        .status(400)
+        .json({
+          message: "Character name must be unique within the Mythology.",
+        });
+    }
+
     if (Array.isArray(characterData)) {
       // If an array of characters is sent, push them all
       mythology.chapters.push(...characterData);
@@ -29,31 +42,6 @@ const addCharacter = async (req, res) => {
     res
       .status(500)
       .json({ message: "Error adding characters", error: error.message });
-  }
-};
-
-const getCharacterByName = async (req, res) => {
-  const { mythologyName, characterName } = req.params;
-
-  try {
-    const mythology = await Mythology.findOne({ name: mythologyName }); // Find mythology by name
-    if (!mythology) {
-      return res.status(404).json({ message: "Mythology not found" });
-    }
-
-    const character = mythology.chapters.find(
-      (char) => char.name === characterName
-    );
-
-    if (!character) {
-      return res.status(404).json({ message: "Character not found" });
-    }
-
-    res.status(200).json(character);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error retrieving character", error: error.message });
   }
 };
 
